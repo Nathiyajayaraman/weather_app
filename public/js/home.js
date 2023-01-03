@@ -1,12 +1,21 @@
 $(document).ready(function () {
     $("#searchBtn").click(function () {
-        var value = $("#name").val();
-        console.log(value);
+        $("#pTag").text("Loading...");
+        var city = $("#city").val();
 
-        if (value == "") {
+        if (city == "") {
             alert("Please enter the city name");
             return;
         }
-        alert("Sucess");
+        
+        $.ajax({
+            url:`/api/weather?city=${city}`,
+            type: 'GET',
+            success: function(res){
+                console.log(res);
+                $("#pTag").text(res);
+                $("#city").val("");
+            }
+        })
     });
 });
